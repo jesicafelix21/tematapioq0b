@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="tapio-project-id" content="96cc75b6-2740-4f51-941e-2d3939e3be59">
+  <title>Novo BioLink</title>
+  <meta name="description" content="Novo BioLink - Bio Link">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://mlwywdyrvneqxvycmaba.supabase.co/storage/v1/object/public/biolink-images/about/37231631-5d2c-4ac2-b7a9-92256660592c.png" fetchpriority="high">
+  <style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+body { min-height: 100vh; min-height: 100dvh; background: linear-gradient(to bottom, #0a0a0a, #151515, #0d0d0d, #050505);  font-family: Inter, sans-serif; color: #FFFFFF; line-height: 1.5; -webkit-font-smoothing: antialiased; position: relative; }
+.bg-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+img { max-width: 100%; height: auto; display: block; }
+.hero-canva img { max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+.container { max-width: 390px; margin: 0 auto; padding: 16px; min-height: 100vh; min-height: 100dvh; position: relative; z-index: 1; }
+@media (max-width: 480px) { .container { max-width: 100%; } }
+.section-block { width: calc(100% + 32px); margin-left: -16px; margin-right: -16px; }
+.section-inner { max-width: 390px; margin: 0 auto; padding: 0 16px; }
+
+/* Lazy Image Styles */
+.lazy-img-wrapper { position: relative; overflow: hidden; }
+.lazy-img-placeholder { 
+  position: absolute; 
+  inset: 0; 
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.05) 100%);
+  background-size: 200% 200%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+.lazy-img-placeholder.loaded { opacity: 0; pointer-events: none; }
+.lazy-img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  opacity: 0; 
+  transition: opacity 0.25s ease-out; 
+}
+.lazy-img.loaded { opacity: 1; }
+/* Critical images (above the fold) - instant display */
+.lazy-img.eager-load { opacity: 1; }
+.lazy-img.eager-load + .lazy-img-placeholder { display: none; }
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Entry Animation Styles - Dynamic Duration: 350ms */
+
+.animate-block {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 350ms cubic-bezier(0.25, 0.1, 0.25, 1), transform 350ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.animate-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.animate-block.hero-block {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .lazy-img-placeholder { animation: none; }
+  .lazy-img { transition: none; opacity: 1; }
+  .animate-block { opacity: 1; transform: none; transition: none; }
+}
+
+.hero-canva { position: relative; width: 100%; }
+.hero-frame { position: relative; width: 100%; overflow: hidden; }
+.hero-bg { width: 100%; height: 100%; min-height: 320px; display: block; object-position: center; }
+.hero-fade { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.hero-content { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; justify-content: center; width: 100%; pointer-events: none; }
+.hero-left { align-items: flex-start; text-align: left; padding: 0 24px; }
+.hero-center { align-items: center; text-align: center; padding: 0 24px; }
+.hero-right { align-items: flex-end; text-align: right; padding: 0 24px; }
+.hero-compact { padding-top: 32px; padding-bottom: 32px; }
+.hero-normal { padding-top: 64px; padding-bottom: 64px; }
+.hero-spacious { padding-top: 96px; padding-bottom: 96px; }
+.hero-title { margin-bottom: 12px; line-height: 1.2; }
+.hero-subtitle { opacity: 0.9; max-width: 320px; line-height: 1.6; }
+
+.card-split { display: flex; overflow: hidden; position: relative; }
+.card-split.no-image { display: block; }
+.card-imageLeft { flex-direction: row; }
+.card-imageRight { flex-direction: row-reverse; }
+.card-image-wrapper { position: relative; width: 40%; aspect-ratio: 1 / 1; overflow: hidden; flex-shrink: 0; }
+.card-image { width: 100%; height: 100%; display: block; }
+.card-image-fade { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.card-content { flex: 1; padding: 16px; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.card-content.full-width { width: 100%; }
+.card-title { margin-bottom: 4px; }
+.card-desc { color: #E8DCC8; margin-bottom: 12px; white-space: pre-wrap; word-break: break-word; }
+.card-button { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; transition: all 0.2s ease; border: none; flex-shrink: 0; align-self: flex-start; }
+.card-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+.cta-whatsapp { display: flex; align-items: center; gap: 16px; margin: 16px 12px; padding: 16px; background: rgba(20,20,20,0.5); border-radius: 16px; }
+.cta-icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; }
+.cta-icon img { width: 28px; height: 28px; object-fit: contain; }
+.cta-icon svg { width: 24px; height: 24px; }
+.cta-content { flex: 1; min-width: 0; }
+.cta-content h4 { margin-bottom: 2px; }
+.cta-content p { }
+.cta-button { padding: 12px 16px; border-radius: 8px; transition: all 0.2s ease; flex-shrink: 0; }
+.cta-button:hover { transform: scale(1.03); box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35); }
+
+.faq-accordion { margin: 16px 12px; }
+.faq-item { transition: all 0.2s ease; }
+.faq-question { width: 100%; padding: 16px; background: none; border: none; font-size: 14px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; transition: color 0.2s ease; cursor: pointer; }
+.faq-question:hover { opacity: 0.8; }
+.faq-icon { font-size: 20px; font-weight: 300; transition: transform 0.3s ease; flex-shrink: 0; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; }
+.faq-answer p { font-size: 14px; line-height: 1.6; padding: 0 16px; }
+.faq-item.open .faq-answer { max-height: 500px; padding-bottom: 16px; }
+
+.footer { padding: 32px 24px; text-align: center; }
+.footer p { font-size: 12px; color: #E8DCC8; }
+
+.footer-empty { transition: all 0.2s ease; }
+.footer-empty-link { transition: opacity 0.2s ease; }
+.footer-empty-link:hover { opacity: 0.8; text-decoration: underline; }
+
+.mini-cta-pill { cursor: pointer; animation: mini-pulse 2.4s ease-in-out infinite; }
+.mini-cta-pill:hover { opacity: 0.9; transform: translateY(-1px); }
+
+@keyframes mini-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+  50% { transform: scale(1.04); box-shadow: 0 0 18px 4px var(--mini-cta-glow, rgba(168,85,247,0.35)); }
+}
+
+@keyframes bounceArrowDown {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+.image-only-container { transition: all 0.2s ease; }
+.image-only-container:hover { transform: scale(1.01); }
+
+@media (max-width: 480px) {
+  .card-image-wrapper { width: 35%; }
+  .card-content { padding: 12px; }
+}
+
+@media (max-width: 320px) {
+  .card-split:not(.no-image) { flex-direction: column !important; }
+  .card-image-wrapper { width: 100%; height: 160px; aspect-ratio: auto; }
+  .cta-whatsapp { flex-wrap: wrap; }
+  .cta-button { width: 100%; text-align: center; margin-top: 8px; }
+}
+  </style>
+</head>
+<body>
+  <div class="bg-overlay" style="background: radial-gradient(ellipse 70% 50% at 50% 20%, rgba(212,175,55,0.08) 0%, transparent 70%);"></div>
+  <div class="bg-overlay" style="background: radial-gradient(ellipse 50% 40% at 80% 70%, rgba(212,175,55,0.05) 0%, transparent 65%);"></div>
+  <canvas id="space-particles" style="position:fixed;inset:0;pointer-events:none;z-index:0;"></canvas>
+  <div class="container" style="display: flex; flex-direction: column; gap: 12px; padding: 16px 16px 16px 16px;">
+<div class="animate-block" data-block-type="AboutMe">
+    <div class="aboutme-block" style="margin: 4px 12px; padding: 16px; background-color: transparent; border-radius: 16px; text-align: center;" data-tapio-block-id="1b5fc687-9ba0-445f-8fcc-53dc0d887878" data-tapio-block-type="AboutMe" data-tapio-block-index="0" data-tapio-block-title="Seu Nome">
+      <div style="width: 120px; height: 120px; margin: 0 auto 8px; border-radius: 999px; overflow: hidden; opacity: 1; "><img src="https://mlwywdyrvneqxvycmaba.supabase.co/storage/v1/object/public/biolink-images/about/37231631-5d2c-4ac2-b7a9-92256660592c.png" alt="Seu Nome" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;" loading="eager" fetchpriority="high" decoding="sync"></div>
+      <h3 style="font-family: Poppins, sans-serif; font-weight: 700; font-style: normal; font-size: 1.5rem; text-decoration: none; text-transform: none; color: #FFFFFF;  text-align: center; opacity: 1; margin-bottom: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">Seu Nome<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D4AF37" style="width: 20px; height: 20px; flex-shrink: 0;"><path d="M12 1.5c-.57 0-1.1.16-1.55.44l-1.43.88a1.5 1.5 0 01-.8.23h-1.68c-1.2 0-2.17.97-2.17 2.17v1.68c0 .28-.08.56-.23.8l-.88 1.43a2.84 2.84 0 000 3.1l.88 1.43c.15.24.23.52.23.8v1.68c0 1.2.97 2.17 2.17 2.17h1.68c.28 0 .56.08.8.23l1.43.88a2.84 2.84 0 003.1 0l1.43-.88c.24-.15.52-.23.8-.23h1.68c1.2 0 2.17-.97 2.17-2.17v-1.68c0-.28.08-.56.23-.8l.88-1.43a2.84 2.84 0 000-3.1l-.88-1.43a1.5 1.5 0 01-.23-.8V5.22c0-1.2-.97-2.17-2.17-2.17h-1.68a1.5 1.5 0 01-.8-.23l-1.43-.88A2.84 2.84 0 0012 1.5z"/><path d="M9.5 12.3l1.8 1.8 3.2-3.6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></h3>
+      <p style="font-family: Inter, sans-serif; font-weight: 500; font-style: normal; font-size: 1rem; text-decoration: none; text-transform: none; color: #E8DCC8;  text-align: center; opacity: 0.8; margin-bottom: 4px;">Especialista em...</p>
+      <p style="font-family: Inter, sans-serif; font-weight: 400; font-style: normal; font-size: 0.875rem; text-decoration: none; text-transform: none; color: #E8DCC8;  text-align: center; opacity: 0.7; line-height: 1.6; white-space: pre-wrap; word-break: break-word; margin-bottom: 8px; text-indent: 0;">Confira meus links abaixo</p>
+      
+    </div></div>
+<div class="animate-block" data-block-type="SocialIcons">
+    <div class="social-icons-block" style="margin: 16px 12px; padding: 16px; border-radius: 12px; box-shadow: none; position: relative; overflow: hidden;" data-tapio-block-id="ad5eafb3-4d68-4e4b-b877-71b8fa07a0c9" data-tapio-block-type="SocialIcons" data-tapio-block-index="1" data-tapio-block-title="Redes Sociais">
+      <div style="position: absolute; inset: 0; background-color: transparent; opacity: 0; border-radius: 12px;"></div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; position: relative; z-index: 1;">
+        <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; text-decoration: none;" data-tapio-element-id="ad5eafb3-4d68-4e4b-b877-71b8fa07a0c9-icon-0" data-tapio-label="instagram" data-tapio-href="https://instagram.com/" data-tapio-block-id="ad5eafb3-4d68-4e4b-b877-71b8fa07a0c9" data-tapio-block-type="SocialIcons" data-tapio-block-index="1" data-tapio-element-index="0"><div style="width: 56px; height: 56px; border-radius: 50%; border: 1px solid #D4AF3722; background: #D4AF3708; box-shadow: 0 0 16px 2px #D4AF3718; display: flex; align-items: center; justify-content: center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="#D4AF37" style="opacity: 1;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></a><a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; text-decoration: none;" data-tapio-element-id="ad5eafb3-4d68-4e4b-b877-71b8fa07a0c9-icon-1" data-tapio-label="tiktok" data-tapio-href="https://tiktok.com/" data-tapio-block-id="ad5eafb3-4d68-4e4b-b877-71b8fa07a0c9" data-tapio-block-type="SocialIcons" data-tapio-block-index="1" data-tapio-element-index="1"><div style="width: 56px; height: 56px; border-radius: 50%; border: 1px solid #D4AF3722; background: #D4AF3708; box-shadow: 0 0 16px 2px #D4AF3718; display: flex; align-items: center; justify-content: center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="#D4AF37" style="opacity: 1;"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></div></a><a href="https://t.me/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; text-decoration: none;" data-tapio-element-id="ad5eafb3-4d68-4e4b-b877-71b8fa07a0c9-icon-2" data-tapio-label="telegram" data-tapio-href="https://t.me/" data-tapio-block-id="ad5eafb3-4d68-4e4b-b877-71b8fa07a0c9" data-tapio-block-type="SocialIcons" data-tapio-block-index="1" data-tapio-element-index="2"><div style="width: 56px; height: 56px; border-radius: 50%; border: 1px solid #D4AF3722; background: #D4AF3708; box-shadow: 0 0 16px 2px #D4AF3718; display: flex; align-items: center; justify-content: center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="#D4AF37" style="opacity: 1;"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div></a>
+      </div>
+      
+      <div style="position: relative; z-index: 1; display: flex; justify-content: center; margin-top: 24px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 28px; height: 28px; opacity: 0.7; animation: bounceArrowDown 2s ease-in-out infinite;">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+    </div></div>
+<div class="animate-block" data-block-type="CardSplit">
+    <div class="card-split-wrapper" style="position: relative; width: 100%; margin: 12px auto; overflow: visible;">
+      
+      <div class="card-split card-imageLeft no-image" style="background-color: #D4AF37; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0px 0px 16px 0px rgba(212, 175, 55, 0.25); min-height: 72px; position: relative;  overflow: hidden;" data-tapio-block-id="5505cc07-b48f-44aa-b472-140996be22de" data-tapio-block-type="CardSplit" data-tapio-block-index="2" data-tapio-block-title=":icon-user: Sobre Mim">
+        
+        
+        <div class="card-content full-width" style="position: relative; z-index: 3;">
+           <h3 class="card-title" style="font-family: Poppins, sans-serif; font-weight: 700; font-style: normal; font-size: 15px; text-decoration: none; text-transform: none; color: #FFFFFF;  white-space: pre-wrap; word-break: break-word; text-align: center;"><span class="tapio-inline-icon" style="display:inline-flex;align-items:center;margin:0 0.1em;vertical-align:-0.25em;width:1.4em;height:1.4em;line-height:1;"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-0.25em;width:1.4em;height:1.4em"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Sobre Mim</h3>
+           <p class="card-desc" style="font-family: Inter, sans-serif; font-weight: 400; font-style: normal; font-size: 11px; text-decoration: none; text-transform: none; color: rgba(255,255,255,0.7);  text-align: center;">Conheça minha história</p>
+          
+        </div>
+      </div>
+      
+      
+    </div></div>
+<div class="animate-block" data-block-type="CardSplit">
+    <div class="card-split-wrapper" style="position: relative; width: 100%; margin: 12px auto; overflow: visible;">
+      
+      <div class="card-split card-imageLeft no-image" style="background-color: #1A1A1A; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0px 0px 16px 0px rgba(26, 26, 26, 0.25); min-height: 72px; position: relative;  overflow: hidden;" data-tapio-block-id="d5021f14-1bf9-4671-86ba-af1f86a699c3" data-tapio-block-type="CardSplit" data-tapio-block-index="3" data-tapio-block-title=":icon-briefcase: Portfólio">
+        
+        
+        <div class="card-content full-width" style="position: relative; z-index: 3;">
+           <h3 class="card-title" style="font-family: Poppins, sans-serif; font-weight: 700; font-style: normal; font-size: 15px; text-decoration: none; text-transform: none; color: #FFFFFF;  white-space: pre-wrap; word-break: break-word; text-align: center;"><span class="tapio-inline-icon" style="display:inline-flex;align-items:center;margin:0 0.1em;vertical-align:-0.25em;width:1.4em;height:1.4em;line-height:1;"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-0.25em;width:1.4em;height:1.4em"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></span> Portfólio</h3>
+           <p class="card-desc" style="font-family: Inter, sans-serif; font-weight: 400; font-style: normal; font-size: 11px; text-decoration: none; text-transform: none; color: rgba(255,255,255,0.7);  text-align: center;">Meus melhores trabalhos</p>
+          
+        </div>
+      </div>
+      
+      
+    </div></div>
+<div class="animate-block" data-block-type="CardSplit">
+    <div class="card-split-wrapper" style="position: relative; width: 100%; margin: 12px auto; overflow: visible;">
+      
+      <div class="card-split card-imageLeft no-image" style="background-color: #2A2A2A; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0px 0px 16px 0px rgba(42, 42, 42, 0.25); min-height: 72px; position: relative;  overflow: hidden;" data-tapio-block-id="288be628-2406-48bd-970d-5d12288e8d71" data-tapio-block-type="CardSplit" data-tapio-block-index="4" data-tapio-block-title=":icon-calendar: Agenda">
+        
+        
+        <div class="card-content full-width" style="position: relative; z-index: 3;">
+           <h3 class="card-title" style="font-family: Poppins, sans-serif; font-weight: 700; font-style: normal; font-size: 15px; text-decoration: none; text-transform: none; color: #FFFFFF;  white-space: pre-wrap; word-break: break-word; text-align: center;"><span class="tapio-inline-icon" style="display:inline-flex;align-items:center;margin:0 0.1em;vertical-align:-0.25em;width:1.4em;height:1.4em;line-height:1;"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-0.25em;width:1.4em;height:1.4em"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></span> Agenda</h3>
+           <p class="card-desc" style="font-family: Inter, sans-serif; font-weight: 400; font-style: normal; font-size: 11px; text-decoration: none; text-transform: none; color: rgba(255,255,255,0.7);  text-align: center;">Marque uma reunião</p>
+          
+        </div>
+      </div>
+      
+      
+    </div></div>
+<div class="animate-block" data-block-type="CardSplit">
+    <div class="card-split-wrapper" style="position: relative; width: 100%; margin: 12px auto; overflow: visible;">
+      
+      <div class="card-split card-imageLeft no-image" style="background-color: #B8960C; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0px 0px 16px 0px rgba(184, 150, 12, 0.25); min-height: 72px; position: relative;  overflow: hidden;" data-tapio-block-id="3d3a8051-212d-47e5-9859-866cb01a0a0d" data-tapio-block-type="CardSplit" data-tapio-block-index="5" data-tapio-block-title=":icon-mail: Contato">
+        
+        
+        <div class="card-content full-width" style="position: relative; z-index: 3;">
+           <h3 class="card-title" style="font-family: Poppins, sans-serif; font-weight: 700; font-style: normal; font-size: 15px; text-decoration: none; text-transform: none; color: #FFFFFF;  white-space: pre-wrap; word-break: break-word; text-align: center;"><span class="tapio-inline-icon" style="display:inline-flex;align-items:center;margin:0 0.1em;vertical-align:-0.25em;width:1.4em;height:1.4em;line-height:1;"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-0.25em;width:1.4em;height:1.4em"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span> Contato</h3>
+           <p class="card-desc" style="font-family: Inter, sans-serif; font-weight: 400; font-style: normal; font-size: 11px; text-decoration: none; text-transform: none; color: rgba(255,255,255,0.7);  text-align: center;">Fale comigo agora</p>
+          
+        </div>
+      </div>
+      
+      
+    </div></div>
+  </div>
+  <script>
+(function() {
+  'use strict';
+  
+  // Animation config
+  var ANIM_BASE_DELAY = 60;
+  var ANIM_SCOPE = 'all';
+  
+  // ========== LAZY IMAGE LOADING ==========
+  // Handles lazy loading with placeholder and fade-in
+  function initLazyImages() {
+    var lazyImages = document.querySelectorAll('.lazy-img');
+    
+    lazyImages.forEach(function(img) {
+      // Skip eager-load images (already visible)
+      if (img.classList.contains('eager-load')) {
+        img.classList.add('loaded');
+        var placeholder = img.parentElement.querySelector('.lazy-img-placeholder');
+        if (placeholder) placeholder.classList.add('loaded');
+        return;
+      }
+      
+      // Handle already loaded images
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add('loaded');
+        var placeholder = img.parentElement.querySelector('.lazy-img-placeholder');
+        if (placeholder) placeholder.classList.add('loaded');
+        return;
+      }
+      
+      // Add load handler
+      img.addEventListener('load', function() {
+        img.classList.add('loaded');
+        var placeholder = img.parentElement.querySelector('.lazy-img-placeholder');
+        if (placeholder) placeholder.classList.add('loaded');
+      });
+    });
+  }
+  
+  // ========== ENTRY ANIMATIONS ==========
+  // IntersectionObserver for staggered entrance animations
+  function initEntryAnimations() {
+    var blocks = document.querySelectorAll('.animate-block');
+    if (!blocks.length) return;
+    
+    // Check for reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      blocks.forEach(function(b) { b.classList.add('visible'); });
+      return;
+    }
+    
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var block = entry.target;
+          var delay = parseInt(block.getAttribute('data-delay')) || 0;
+          setTimeout(function() {
+            block.classList.add('visible');
+          }, delay);
+          observer.unobserve(block);
+        }
+      });
+    }, { rootMargin: '120px', threshold: 0 });
+    
+    var animIndex = 0;
+    blocks.forEach(function(block) {
+      // Hero blocks animate immediately
+      if (block.classList.contains('hero-block')) {
+        block.classList.add('visible');
+        return;
+      }
+      // Calculate stagger delay using config (max 600ms)
+      var delay = Math.min(animIndex * ANIM_BASE_DELAY, 600);
+      block.setAttribute('data-delay', delay);
+      observer.observe(block);
+      animIndex++;
+    });
+  }
+  
+  // ========== FAQ ACCORDION ==========
+  document.querySelectorAll('.faq-item .faq-question').forEach(function(button) {
+    button.addEventListener('click', function() {
+      var item = this.parentElement;
+      item.classList.toggle('open');
+    });
+  });
+  
+  // ========== SMOOTH SCROLL ==========
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+  
+  // ========== CAROUSEL ==========
+  window.carouselState = {};
+  document.querySelectorAll('.carousel-container').forEach(function(c) {
+    var slides = c.querySelectorAll('.carousel-slide');
+    window.carouselState[c.id] = { index: 0, total: slides.length };
+  });
+  window.moveCarousel = function(id, dir) {
+    var s = window.carouselState[id]; if (!s) return;
+    s.index = (s.index + dir + s.total) % s.total;
+    var t = document.querySelector('#' + id + ' .carousel-track');
+    if (t) t.style.transform = 'translateX(-' + (s.index * 100) + '%)';
+    document.querySelectorAll('#' + id + ' .carousel-dots button').forEach(function(d, i) {
+      d.style.background = i === s.index ? 'white' : 'rgba(255,255,255,0.5)';
+    });
+  };
+  window.goToSlide = function(id, idx) {
+    var s = window.carouselState[id]; if (!s) return;
+    s.index = idx;
+    var t = document.querySelector('#' + id + ' .carousel-track');
+    if (t) t.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    document.querySelectorAll('#' + id + ' .carousel-dots button').forEach(function(d, i) {
+      d.style.background = i === idx ? 'white' : 'rgba(255,255,255,0.5)';
+    });
+  };
+  // Autoplay logic for exported carousel
+  document.querySelectorAll('.carousel-container[data-autoplay="true"]').forEach(function(c) {
+    var speed = parseInt(c.getAttribute('data-autoplay-speed')) || 3000;
+    var loop = c.getAttribute('data-loop') === 'true';
+    var slides = c.querySelectorAll('.carousel-slide');
+    if (slides.length <= 1) return;
+    setInterval(function() {
+      var s = window.carouselState[c.id];
+      if (!s) return;
+      if (loop) {
+        s.index = (s.index + 1) % s.total;
+      } else if (s.index < s.total - 1) {
+        s.index++;
+      }
+      var t = c.querySelector('.carousel-track');
+      if (t) t.style.transform = 'translateX(-' + (s.index * 100) + '%)';
+      c.querySelectorAll('.carousel-dots button').forEach(function(d, i) {
+        d.style.background = i === s.index ? 'white' : 'rgba(255,255,255,0.5)';
+      });
+    }, speed);
+  });
+  
+  // ========== EMAIL FORM ==========
+  window.handleEmailSubmit = function(e, destEmail, subject) {
+    e.preventDefault();
+    var form = e.target;
+    var name = form.querySelector('[name="name"]').value;
+    var email = form.querySelector('[name="email"]').value;
+    var message = form.querySelector('[name="message"]').value;
+    var body = 'Nome: ' + name + '%0D%0AEmail: ' + email + '%0D%0A%0D%0AMensagem:%0D%0A' + encodeURIComponent(message);
+    window.location.href = 'mailto:' + destEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + body;
+  };
+  
+  // ========== INIT ON DOM READY ==========
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      initLazyImages();
+      initEntryAnimations();
+    });
+  } else {
+    initLazyImages();
+    initEntryAnimations();
+  }
+})();
+
+(function(){
+  var c=document.getElementById('space-particles');
+  if(!c)return;
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  var ps=[];for(var i=0;i<25;i++){ps.push({x:Math.random()*c.width,y:Math.random()*c.height,s:Math.random()*1.8+0.5,o:Math.random()*0.25+0.05,dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.2,p:Math.random()*Math.PI*2});}
+  function draw(){ctx.clearRect(0,0,c.width,c.height);ps.forEach(function(p){p.x+=p.dx;p.y+=p.dy;p.p+=0.01;var flicker=0.5+0.5*Math.sin(p.p);ctx.globalAlpha=p.o*flicker;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,Math.PI*2);ctx.fill();if(p.x<-5)p.x=c.width+5;if(p.x>c.width+5)p.x=-5;if(p.y<-5)p.y=c.height+5;if(p.y>c.height+5)p.y=-5;});requestAnimationFrame(draw);}
+  draw();
+})();
+
+  </script>
+   <script>
+   (function(){
+     'use strict';
+     var EP='https://mlwywdyrvneqxvycmaba.supabase.co/functions/v1/track-event';
+     var pid=document.querySelector('meta[name="tapio-project-id"]');
+     if(!pid)return;
+     var P=pid.getAttribute('content');
+
+     // Environment detection — only Lovable/localhost are preview
+     // Everything else is prod (dashboard filters by exact URL)
+     var h=location.hostname.toLowerCase();
+     var env=(h.indexOf('lovable.app')!==-1||h.indexOf('lovable.dev')!==-1||h==='localhost'||h==='127.0.0.1'||h==='0.0.0.0')?'preview':'prod';
+
+     // Canonical page_url: origin + pathname (no query/hash)
+     var canonicalUrl=(location.origin+location.pathname).substring(0,500);
+
+     // Visitor ID (persistent across sessions)
+     var vid=localStorage.getItem('tapio_vid');
+     if(!vid){vid=Math.random().toString(36).substr(2,12);localStorage.setItem('tapio_vid',vid);}
+
+     // Session ID (per browser session)
+     var sid=sessionStorage.getItem('tapio_sid');
+     if(!sid){sid=Math.random().toString(36).substr(2,12);sessionStorage.setItem('tapio_sid',sid);}
+
+     function send(payload){
+       payload.project_id=P;
+       payload.page_url=canonicalUrl;
+       payload.visitor_id=vid;
+       payload.session_id=sid;
+       payload.referrer=(document.referrer||'').substring(0,500);
+       payload.user_agent=(navigator.userAgent||'').substring(0,300);
+       payload.screen_w=screen.width;
+       payload.screen_h=screen.height;
+       payload.viewport_w=innerWidth;
+       payload.viewport_h=innerHeight;
+       var params=new URLSearchParams(location.search);
+       payload.meta={env:env,utm_source:params.get('utm_source')||params.get('src')||'',utm_medium:params.get('utm_medium')||'',utm_campaign:params.get('utm_campaign')||''};
+       fetch(EP,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true,credentials:'omit'}).catch(function(){});
+     }
+
+     // View: not in iframe, only if visible, 1 view per session per page
+     if(window.top===window.self&&document.visibilityState==='visible'){
+       var viewKey='tapio_viewed_'+canonicalUrl+'_'+sid;
+       if(!sessionStorage.getItem(viewKey)){
+         sessionStorage.setItem(viewKey,'1');
+         send({event_type:'view'});
+       }
+     }
+
+     // Click debounce map (300ms per element_id)
+     var lastClick={};
+
+     // Click delegation
+     document.addEventListener('click',function(e){
+       var el=e.target.closest('a[href],button,[role="button"],[data-tapio-element-id]');
+       if(!el)return;
+       var eid=el.getAttribute('data-tapio-element-id')||el.id||null;
+       var label=el.getAttribute('data-tapio-label')||(el.innerText||'').trim().substring(0,120)||'clique';
+       var href=el.getAttribute('data-tapio-href')||el.getAttribute('href')||null;
+
+       // Debounce: 300ms per element
+       var debounceKey=eid||label;
+       var now=Date.now();
+       if(lastClick[debounceKey]&&now-lastClick[debounceKey]<300)return;
+       lastClick[debounceKey]=now;
+
+       // Walk up to find block container for block_title
+       var bc=el.closest('[data-tapio-block-id]');
+       var blockTitle=bc?bc.getAttribute('data-tapio-block-title'):null;
+       // Fallback: if attribute missing/empty, read heading text via textContent
+       if(!blockTitle&&bc){
+         var heading=bc.querySelector('h3,h2,h1,.card-title');
+         if(heading)blockTitle=(heading.textContent||'').trim().substring(0,120);
+       }
+
+       send({
+         event_type:'click',
+         element_id:eid,
+         element_label:label,
+         element_href:href?href.substring(0,500):null,
+         block_id:el.getAttribute('data-tapio-block-id')||(bc?bc.getAttribute('data-tapio-block-id'):null),
+         block_type:el.getAttribute('data-tapio-block-type')||(bc?bc.getAttribute('data-tapio-block-type'):null),
+         block_title:blockTitle?(blockTitle).substring(0,120):null,
+         block_index:el.getAttribute('data-tapio-block-index')?parseInt(el.getAttribute('data-tapio-block-index')):(bc&&bc.getAttribute('data-tapio-block-index')?parseInt(bc.getAttribute('data-tapio-block-index')):null),
+         element_index:el.getAttribute('data-tapio-element-index')?parseInt(el.getAttribute('data-tapio-element-index')):null,
+         click_x:e.clientX,
+         click_y:e.clientY,
+         scroll_y:Math.round(window.scrollY)
+       });
+     },true);
+   })();
+   </script>
+</body>
+</html>
